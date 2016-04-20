@@ -69,7 +69,7 @@ class Index extends ActionController
 
             $request = $this->fb->request(
                 'POST',
-                '/1020778344680078/feed',
+                '/1548515625401404/feed',
                 array(
                     'message' => 'Testando a publicação no grupo através da api do face'
                 )

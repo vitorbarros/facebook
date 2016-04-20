@@ -1,7 +1,7 @@
 <?php
 
 return array(
-    'app_id' => '457949737731345',
-    'app_secret' => 'e84e5c683c288f393c13dcba7df2c2b5',
+    'app_id' => '457949284398057',
+    'app_secret' => '512328fc150d7f19965a4220b0926cd2',
     'default_graph_version' => 'v2.6'
 );
