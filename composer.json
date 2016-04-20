@@ -1,0 +1,20 @@
+{
+    "name": "vitorbarros/facebook",
+    "description": "pacote de integrcao com o facebook",
+    "type": "lib",
+    "require": {
+        "facebook/php-sdk-v4": "^5.1"
+    },
+    "authors": [
+        {
+            "name": "Vitor Barros",
+            "email": "vitormonteirodebarros@gmail.com"
+        }
+    ],
+    "autoload": {
+        "psr-0": {
+            "Facebook\\":"vendor/facebook/php-sdk-v4/src/Facebook",
+            "App\\":"App/"
+        }
+    }
+}
