@@ -2,9 +2,7 @@
 namespace App\Controller;
 
 use Facebook\Facebook;
-use Facebook\FacebookApp;
 use Facebook\Exceptions\FacebookResponseException;
-use Facebook\FacebookRequest;
 use VMB\Http\Controller\ActionController;
 
 class Index extends ActionController
@@ -31,10 +29,14 @@ class Index extends ActionController
             $this->fb = new Facebook($config);
         }
 
-        if (!isset($_SESSION['accesses_token'])) {
-            header('location: /');
-        } else {
-            $this->fb->setDefaultAccessToken($_SESSION['accesses_token']);
+        $url = parse_url($_SERVER['REQUEST_URI'], PHP_URL_PATH);
+
+        if ($url == '/group' || $url == '/auth') {
+            if (!isset($_SESSION['accesses_token'])) {
+                header('location: /');
+            } else {
+                $this->fb->setDefaultAccessToken($_SESSION['accesses_token']);
+            }
         }
 
     }
@@ -42,7 +44,8 @@ class Index extends ActionController
     public function index()
     {
         $redirect = $this->fb->getRedirectLoginHelper();
-        $loginUrl = $redirect->getLoginUrl($this->redirectConfig['redirect_login']);
+        $permissions = ['email', 'user_likes', 'user_friends', 'user_posts', 'publish_actions']; // optional
+        $loginUrl = $redirect->getLoginUrl($this->redirectConfig['redirect_login'], $permissions);
 
         $this->viewData = array('login' => $loginUrl);
         $this->render('index');
