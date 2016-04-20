@@ -13,6 +13,9 @@ class Index extends ActionController
      */
     private $fb;
 
+    /**
+     * @var array
+     */
     private $redirectConfig;
 
     public function __construct()
@@ -25,6 +28,11 @@ class Index extends ActionController
         if (null === $this->fb) {
             $this->fb = new Facebook($config);
         }
+
+        if (!isset($_SESSION['accesses_token'])) {
+            header('location: /');
+        }
+        
     }
 
     public function index()
@@ -38,17 +46,21 @@ class Index extends ActionController
 
     public function auth()
     {
-
         try {
             $helper = $this->fb->getRedirectLoginHelper();
-            $accessToken = $helper->getAccessToken($this->redirectConfig['redirect_login']);
-
-            echo $accessToken;
-
+            $_SESSION['accesses_token'] = $helper->getAccessToken();
+            header('location: /group');
         } catch (FacebookResponseException $e) {
             echo $e->getMessage();
         }
+    }
 
+    public function group()
+    {
+
+        echo '<pre>';
+        print_r($_SESSION);
+        exit;
     }
 
 }
