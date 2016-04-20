@@ -13,8 +13,9 @@
     ],
     "autoload": {
         "psr-0": {
-            "Facebook\\":"vendor/facebook/php-sdk-v4/src/Facebook",
-            "App\\":"App/"
+            "Facebook":"vendor/facebook/php-sdk-v4/src",
+            "App":"/",
+            "VMB":"vendor"
         }
     }
 }
