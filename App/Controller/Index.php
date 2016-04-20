@@ -2,7 +2,9 @@
 namespace App\Controller;
 
 use Facebook\Facebook;
+use Facebook\FacebookApp;
 use Facebook\Exceptions\FacebookResponseException;
+use Facebook\FacebookRequest;
 use VMB\Http\Controller\ActionController;
 
 class Index extends ActionController
@@ -31,8 +33,10 @@ class Index extends ActionController
 
         if (!isset($_SESSION['accesses_token'])) {
             header('location: /');
+        } else {
+            $this->fb->setDefaultAccessToken($_SESSION['accesses_token']);
         }
-        
+
     }
 
     public function index()
@@ -58,9 +62,24 @@ class Index extends ActionController
     public function group()
     {
 
-        echo '<pre>';
-        print_r($_SESSION);
-        exit;
+        try {
+
+            $request = $this->fb->request(
+                'POST',
+                '/1020778344680078/feed',
+                array(
+                    'message' => 'Testando a publicação no grupo através da api do face'
+                )
+            );
+
+            $response = $this->fb->getClient()->sendRequest($request);
+            echo '<pre>';
+            print_r($response);
+            exit;
+
+        } catch (FacebookResponseException $e) {
+            echo $e->getMessage();
+        }
     }
 
 }
