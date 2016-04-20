@@ -1,4 +1,5 @@
-vendor/
+vendor/composer
+vendor/facebook
 .idea/
 .git/
 .buildpath
